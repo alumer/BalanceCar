@@ -52,9 +52,11 @@ void setup()
     // 串口初始化
     Serial.begin(115200);
     // 各种初始化：
-    MPU6050_Init(); // 陀螺仪
     Wheel_init();//电机
-    OLED_init();
+
+    MPU6050_Init(); // 陀螺
+    
+    // OLED_init();
     
 
     // 启动线程
@@ -105,7 +107,6 @@ void task_motor_move(void *pvParameters)
 void task_MPU6050_Update(void *pvParameters)
 {
     AngleData Angle;
-
     while (1)
     {
         Angle = UpdateAngle();
@@ -115,12 +116,12 @@ void task_MPU6050_Update(void *pvParameters)
         Serial.print("Angle.Roll:");
         Serial.println(Angle.Roll);
         //-----显示角度
-        display.clearDisplay();
-        display.setCursor(0, 0);
-        display.print("Pitch:");
-        display.println(Angle.Pitch, 2); // 2---是显示小数点后几位的意思
-        display.print("Roll:");
-        display.println(Angle.Roll, 2);
+        // display.clearDisplay();
+        // display.setCursor(0, 0);
+        // display.print("Pitch:");
+        // display.println(Angle.Pitch, 2); // 2---是显示小数点后几位的意思
+        // display.print("Roll:");
+        // display.println(Angle.Roll, 2);
         //------平衡模式
 
         speed_average = (speed_right + speed_left) / 2;//获取平均速度

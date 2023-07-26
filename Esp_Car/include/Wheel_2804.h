@@ -12,6 +12,6 @@ extern BLDCMotor motor1 ;
 // Commander command = Commander(Serial);
 // void doTarget(char* cmd) { command.scalar(&target_velocity, cmd); }
 void Wheel_init();
-
+extern TwoWire I2Ctwo ;
 
 #endif 

@@ -25,18 +25,20 @@ float k_k[2][2] = {{0, 0}, {0, 0}}; // 这里的卡尔曼增益矩阵K是一个2
 
 Adafruit_MPU6050 mpu;
 AngleData Angle;
-
+TwoWire MpuWire=TwoWire(2) ;
 // 存储变量
 
 void MPU6050_Init()
 {
     /*打开串口和实现I2C通信*/
-    // Wire.begin(21, 22); // SDA->23,SCL->5,可以根据情况自行修改
+    MpuWire.begin(21, 22); // SDA->23,SCL->5,可以根据情况自行修改
     /*判断是否连接到MPU6050并且初始化*/
-    while (!mpu.begin())
+    Serial.println("Debug----1");
+    while (!mpu.begin(0x68))
     {
         Serial.println("Failed to find MPU6050 chip");
     }
+    Serial.println("Debug----2");
     Serial.println("MPU6050 Found!");
     mpu.setAccelerometerRange(MPU6050_RANGE_2_G); // 加速度量程±2G
     mpu.setGyroRange(MPU6050_RANGE_250_DEG);      // 角速度量程±250°/s

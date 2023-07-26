@@ -6,7 +6,6 @@ MagneticSensorI2C sensor = MagneticSensorI2C(AS5600_I2C);
 MagneticSensorI2C sensor1 = MagneticSensorI2C(AS5600_I2C);
 TwoWire I2Cone = TwoWire(0);
 TwoWire I2Ctwo = TwoWire(1);
-
 //电机参数
 BLDCMotor motor = BLDCMotor(7);
 BLDCDriver3PWM driver = BLDCDriver3PWM(33, 32, 13, 16);//-------扩展板的io设置--确认完毕
@@ -17,7 +16,7 @@ BLDCDriver3PWM driver1 = BLDCDriver3PWM(25, 26, 27, 14);//-------扩展板的io�
 void Wheel_init()
 {
     I2Cone.begin(19, 18, 400000UL); //---0de1
-    I2Ctwo.begin(23, 5, 400000UL);
+    I2Ctwo.begin(23, 5, 400000UL);//我尝试把他们丢到同一条总线上面---但是实际效果却不行-----找到了地址---并且还是会出现报错tx的缓冲区是空的
     sensor.init(&I2Cone);
     sensor1.init(&I2Ctwo);
     // 连接motor对象与传感器对象
@@ -25,7 +24,7 @@ void Wheel_init()
     motor1.linkSensor(&sensor1);
 
     // 供电电压设置 [V]
-    driver.voltage_power_supply = 12;
+    driver.voltage_power_supply = 12; 
     driver.init();
 
     driver1.voltage_power_supply = 12;
